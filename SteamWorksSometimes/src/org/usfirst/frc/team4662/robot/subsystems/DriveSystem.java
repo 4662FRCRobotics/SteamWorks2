@@ -87,6 +87,7 @@ public class DriveSystem extends Subsystem {
 		ControllerRight1 = new CANTalon(RobotMap.rightMotor1);
 		ControllerRight2 = new CANTalon(RobotMap.rightMotor2);
 		ControllerRight1.setInverted(true);
+		ControllerRight1.reverseSensor(true);
 		
 		ControllerLeft2.changeControlMode(CANTalon.TalonControlMode.Follower); //makes the controllers followers
 		ControllerRight2.changeControlMode(CANTalon.TalonControlMode.Follower);
@@ -225,7 +226,7 @@ public class DriveSystem extends Subsystem {
     	driveDistance.setSetpoint(rotations);
     	m_dRotations = rotations;
     	driveDistance.enable();
-    	logDashboard(0,0);
+    	dashboardDisplay();
     }
     
     public void disableEncoder () {
@@ -370,6 +371,7 @@ public class DriveSystem extends Subsystem {
     	SmartDashboard.putNumber("Jerk X Value", currentJerkX);
     	SmartDashboard.putNumber("Jerk Y Value", currentJerkY);
     	SmartDashboard.putBoolean("IsBumped", Robot.driveSystem.isBumped());
+    	SmartDashboard.putNumber("RightEncoderPID", ControllerRight1.pidGet());
     }
    
     private class EncoderWrapper implements PIDSource{
